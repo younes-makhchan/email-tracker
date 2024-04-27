@@ -13,7 +13,7 @@ app.use(express.static('./public'));
 
 // start: set up db
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGO_URL, { useMongoClient: true, server: { socketOptions: { keepAlive: 1 } } });
+mongoose.connect(process.env.MONGO_URL, {dbname:"emailTracker"});
 mongoose.connection.on('error', () => {
     logger.error(`unable to connect to database: ${process.env.MONGO_URL}`);
 });

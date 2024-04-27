@@ -48,7 +48,7 @@ module.exports.emailOpen = function(req, res) {
             }
         });
     }
-    res.redirect(`/${process.env.IMAGE_NAME}`);
+    res.redirect(`/image.jpg`);
 };
 
 function acknowledge(emailDetails) {
