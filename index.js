@@ -9,6 +9,7 @@ const routes = require('./app/route');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 
 //mongoose connection
 mongoose.Promise = Promise;
@@ -18,7 +19,7 @@ mongoose.connection.on('error', () => {
 });
 // Creating an instance of express app
 const app = express();
-
+app.use(cors())
 app.use(express.static('./public'));
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
