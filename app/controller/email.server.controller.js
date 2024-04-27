@@ -11,30 +11,30 @@ module.exports.sendEmail = function(req, res) {
     const email = new Email(req.body);
     email.save()
         .then(() => {
-            sendEmail();
+            res.status({success:"true"})
         })
         .catch(e => res.json({success: false, error: e.message}));
 
-    function sendEmail() {
-        emailUtil.sendEmail({
-            id: email._id,
-            to: email.to,
-            subject: email.subject,
-            html: email.html || ''
-        }, emailSentStatus );
-    }
+    // function sendEmail() {
+    //     emailUtil.sendEmail({
+    //         id: email._id,
+    //         to: email.to,
+    //         subject: email.subject,
+    //         html: email.html || ''
+    //     }, emailSentStatus );
+    // }
 
-    function emailSentStatus(error) {
-        if (error) {
-            email.status = 'failed';
-            email.error = error;
-            email.save();
-            logger.error(error);
-            res.json({success: false, error: error});
-        } else{
-            res.json({success: true, id : email.id});
-        }
-    }
+    // function emailSentStatus(error) {
+    //     if (error) {
+    //         email.status = 'failed';
+    //         email.error = error;
+    //         email.save();
+    //         logger.error(error);
+    //         res.json({success: false, error: error});
+    //     } else{
+    //         res.json({success: true, id : email.id});
+    //     }
+    // }
 };
 
 module.exports.emailOpen = function(req, res) {
