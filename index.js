@@ -10,20 +10,28 @@ const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
+//mongoose connection
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGO_URL, {dbname:"emailTracker"});
+mongoose.connection.on('error', () => {
+    logger.error(`unable to connect to database: ${process.env.MONGO_URL}`);
+});
 // Creating an instance of express app
 const app = express();
 
 app.use(express.static('./public'));
+// parse body params and attache them to req.body
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Define a route
-app.get('/', (req, res) => {
-  res.send('Hello, world!');
+app.use(function(req, res, next){
+  logger.info(`${req.method} ${req.originalUrl}`);
+  next();
 });
-app.get('/hello', (req, res) => {
-    res.send('Hello, world!');
-  });
+app.use('/', routes);
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(process.env.PORT, () => logger.info('server started'));
+process.on('uncaughtException', function(err) {
+    logger.error('error', err);
 });
+export default app
