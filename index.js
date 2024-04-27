@@ -14,11 +14,14 @@ const bodyParser = require('body-parser');
 const app = express();
 
 app.use(express.static('./public'));
+
 // Define a route
 app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
-
+app.get('/hello', (req, res) => {
+    res.send('Hello, world!');
+  });
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
