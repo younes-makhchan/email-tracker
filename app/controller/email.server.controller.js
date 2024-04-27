@@ -2,11 +2,14 @@ const Email = require('../model/email.server.model');
 const logger = require('../../config/logger');
 const emailUtil = require('../../util/send_email');
 const checkForValidMongoId = new RegExp('^[0-9a-fA-F]{24}$');
-
+const path=require("path")
 module.exports.renderForm = function(req, res) {
     res.send('API Details');
 };
-
+module.exports.renderimage = function(req, res) {
+    const imagePath = path.join(__dirname,"..","..", 'public', 'image.jpg'); // Change 'your_image.jpg' to the actual name of your image file
+    res.sendFile(imagePath);
+};
 module.exports.sendEmail = function(req, res) {
     const email = new Email(req.body);
     email.save()
@@ -48,7 +51,7 @@ module.exports.emailOpen = function(req, res) {
             }
         });
     }
-    res.redirect(`/image.jpg`);
+    res.redirect(`/image`);
 };
 
 function acknowledge(emailDetails) {

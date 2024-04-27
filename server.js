@@ -9,7 +9,7 @@ const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-app.use(express.static('./public'));
+// app.use("/",express.static('./public'));
 
 // start: set up db
 mongoose.Promise = Promise;
