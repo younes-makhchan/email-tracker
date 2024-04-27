@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const logger = require('./config/logger');
 const routes = require('./app/route');
-
+const cors = require('cors')
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -18,6 +18,7 @@ mongoose.connection.on('error', () => {
     logger.error(`unable to connect to database: ${process.env.MONGO_URL}`);
 });
 
+app.use(cors())
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
