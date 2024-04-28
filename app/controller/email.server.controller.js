@@ -51,7 +51,7 @@ module.exports.emailOpen = function(req, res) {
             }
         });
     }
-    res.redirect(`/image`);
+    res.redirect(`/dist/image.jpg`);
 };
 
 function acknowledge(emailDetails) {

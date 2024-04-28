@@ -1,7 +1,3 @@
-
-// Importing required modules
-
-
 // Importing required modules
 const express = require('express');
 const logger = require('../config/logger');
@@ -10,7 +6,7 @@ const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors')
-
+const serverless=require("serverless-http")
 //mongoose connection
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGO_URL, {dbname:"emailTracker"});
@@ -20,19 +16,19 @@ mongoose.connection.on('error', () => {
 // Creating an instance of express app
 const app = express();
 app.use(cors())
-app.use(express.static('../dist'));
+app.use(express.static('../public'));
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(function(req, res, next){
-  logger.info(`${req.method} ${req.originalUrl}`);
-  next();
-});
-app.use('/', routes);
+// app.use(function(req, res, next){
+//   logger.info(`${req.method} ${req.originalUrl}`);
+//   next();
+// });
+app.use('/.netlify/functions/api', routes);
 // Start the server
-app.listen(3000, () => logger.info('server started'));
-process.on('uncaughtException', function(err) {
-    logger.error('error', err);
-});
-
+// app.listen(3000, () => logger.info('server started'));
+// process.on('uncaughtException', function(err) {
+//     logger.error('error', err);
+// });
+module.exports.handler=serverless(app)

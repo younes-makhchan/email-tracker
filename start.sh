@@ -1,0 +1,1 @@
+docker run -e MONGO_URL=mongodb+srv://emailTracker:3VLP3etjxWj73I4x@cluster.nszsxvk.mongodb.net/ -e LOGGER_LEVEL=silly  -p 3000:3000 track-email 
