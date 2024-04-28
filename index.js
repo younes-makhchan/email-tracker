@@ -1,11 +1,10 @@
 
 // Importing required modules
-
-
+require("./loadEnv")
 // Importing required modules
 const express = require('express');
-const logger = require('../config/logger');
-const routes = require('../app/route');
+const logger = require('./config/logger');
+const routes = require('./app/route');
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -20,7 +19,7 @@ mongoose.connection.on('error', () => {
 // Creating an instance of express app
 const app = express();
 app.use(cors())
-app.use(express.static('../dist'));
+app.use(express.static('./public'));
 // parse body params and attache them to req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
