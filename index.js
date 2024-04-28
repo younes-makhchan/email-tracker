@@ -30,7 +30,7 @@ app.use(function(req, res, next){
 });
 app.use('/', routes);
 // Start the server
-app.listen(3000, () => logger.info('server started'));
+app.listen(process.env.port||3000, () => logger.info('server started'));
 process.on('uncaughtException', function(err) {
     logger.error('error', err);
 });
